@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 60%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+  <form action="/addtask/" method="POST" style="margin-left: 10%;">
+    {% csrf_token %}
+    <input type="text" name="task" required>
+    <input type="submit" value="Add" class="btn btn-outline-success" name="">
+  </form>
+  <br>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Task</th>
+      <th>Delete</th>
+      <th>Edit</th>
+    </tr>
+    
+      {% for mytodo in obj %}
+        <tr>
+          <td>{{ mytodo.id }}</td>
+          <td>{{mytodo.task}}</td>
+          <td><a href="/delete/{{mytodo.id}}/" class="btn btn-danger">Delete</a></td>
+          <td><a href="/edit/{{mytodo.id}}/" class="btn btn-warning">Edit</a></td>
+        </tr>  
+      {% endfor %}
+    
+  </table>
+{% endblock %}
